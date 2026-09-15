@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../app/l10n/generated/app_localizations.dart';
-import '../../../../app/routes/app_routes.dart';
+import '../../../../app/routes/screen_paths.dart';
 import '../../../../core/widget/app_button.dart';
 import '../providers/auth_provider.dart';
 
@@ -27,15 +28,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Future<void> _submit() async {
-    final failure = await ref.read(authControllerProvider.notifier).login(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
+    final failure = await ref
+        .read(authControllerProvider.notifier)
+        .login(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
     if (!mounted) return;
     if (failure == null) {
-      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+      context.go(ScreenPaths.home);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(failure.message)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(failure.message)));
     }
   }
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../app/routes/app_routes.dart';
+import '../../../app/routes/screen_paths.dart';
 import '../../../core/providers/core_providers.dart';
 
 const _seenOnboardingKey = 'seen_onboarding';
@@ -27,12 +28,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     final isLoggedIn = await ref.read(sessionManagerProvider).isLoggedIn;
     if (!mounted) return;
 
-    final route = !seenOnboarding
-        ? AppRoutes.onboarding
+    final path = !seenOnboarding
+        ? ScreenPaths.onboarding
         : isLoggedIn
-        ? AppRoutes.home
-        : AppRoutes.login;
-    Navigator.of(context).pushReplacementNamed(route);
+        ? ScreenPaths.home
+        : ScreenPaths.login;
+    context.go(path);
   }
 
   @override
