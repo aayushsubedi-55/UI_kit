@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pracproj/app/routes/app_routes.dart';
 
+import '../core/widget/common/app_scroll_behavior.dart';
 import 'l10n/generated/app_localizations.dart';
 // import 'routes/screen_paths.dart';
 // import 'routes/app_routes.dart';
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'pracproj',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
+      // Bouncy scrolling everywhere + mouse-drag and scrollbars on desktop.
+      scrollBehavior: AppScrollBehavior(),
 
       // initialRoute: AppRoutes.splash,
       // onGenerateRoute: AppRouter.onGenerateRoute,

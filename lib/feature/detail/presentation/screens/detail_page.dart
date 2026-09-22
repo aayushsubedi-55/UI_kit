@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../app/routes/screen_paths.dart';
+import '../../../../core/widget/controls/app_header.dart';
 
 class DetailsPage extends StatelessWidget {
   final String id;
@@ -8,8 +12,17 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Details Page')),
-      body: const Center(child: Text('This is the details page.')),
+      body: Column(
+        children: [
+          AppHeader(
+            title: 'Details',
+            subtitle: id,
+            // Deep-linked straight here? There's nothing to pop, so go home.
+            onBack: () => context.canPop() ? context.pop() : context.go(ScreenPaths.home),
+          ),
+          const Expanded(child: Center(child: Text('This is the details page.'))),
+        ],
+      ),
     );
   }
 }

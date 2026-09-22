@@ -51,6 +51,25 @@ void main() {
     expect(taps, 1, reason: 'disabled button must not fire');
   });
 
+  testWidgets('AppButton swaps its label for a spinner and blocks taps while loading', (
+    tester,
+  ) async {
+    var taps = 0;
+    await tester.pumpWidget(
+      _wrap(AppButton(label: 'Log in', isLoading: true, onPressed: () => taps++)),
+    );
+    expect(find.text('LOG IN'), findsNothing);
+    expect(find.byType(AppLoadingIndicator), findsOneWidget);
+
+    await tester.tap(find.byType(AppButton), warnIfMissed: false);
+    expect(taps, 0);
+
+    await tester.pumpWidget(_wrap(AppButton(label: 'Log in', onPressed: () => taps++)));
+    expect(find.text('LOG IN'), findsOneWidget);
+    await tester.tap(find.text('LOG IN'));
+    expect(taps, 1);
+  });
+
   testWidgets('EightWaySwipeDetector reports a normalized direction', (tester) async {
     final dirs = <Offset>[];
     await tester.pumpWidget(
@@ -62,7 +81,7 @@ void main() {
       ),
     );
 
-    await tester.drag(find.byType(ColoredBox), const Offset(-200, 0));
+    await tester.drag(find.byType(EightWaySwipeDetector), const Offset(-200, 0));
     await tester.pumpAndSettle();
     expect(dirs, isNotEmpty);
     expect(dirs.first, const Offset(-1, 0));

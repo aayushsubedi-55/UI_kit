@@ -55,11 +55,12 @@ class AppBtn extends StatelessWidget {
     this.semanticLabel = semanticLabel ?? text ?? '';
     _builder = (context) {
       if (text == null && icon == null) return const SizedBox.shrink();
+      // No explicit style: build() installs a DefaultTextStyle with the right
+      // foreground color for the button's background.
       final txt = text == null
           ? null
           : Text(
               text.toUpperCase(),
-              style: Theme.of(context).textTheme.labelLarge,
               textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
             );
       final icn = icon == null ? null : Icon(icon, size: iconSize ?? 18);
@@ -122,7 +123,8 @@ class AppBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final defaultColor = isSecondary ? scheme.secondaryContainer : scheme.primary;
     final textColor = isSecondary ? scheme.onSecondaryContainer : scheme.onPrimary;
     final side = border ?? BorderSide.none;
@@ -160,7 +162,9 @@ class AppBtn extends StatelessWidget {
               style: style,
               focusNode: focus,
               child: DefaultTextStyle(
-                style: DefaultTextStyle.of(context).style.copyWith(color: textColor),
+                style: (theme.textTheme.labelLarge ?? DefaultTextStyle.of(context).style).copyWith(
+                  color: textColor,
+                ),
                 child: IconTheme.merge(
                   data: IconThemeData(color: textColor),
                   child: content,
