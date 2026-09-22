@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 enum Environment { development, staging, production }
 
 class AppConfig {
@@ -16,9 +18,14 @@ class AppConfig {
   factory AppConfig.fromEnvironment(Environment env) {
     switch (env) {
       case Environment.development:
+        // The local backend in ../backend. An Android emulator reaches the
+        // host machine at 10.0.2.2, not localhost -- localhost there is the
+        // emulator itself. On a physical device use your machine's LAN IP.
         return AppConfig(
           environment: env,
-          apiBaseUrl: 'https://dev.api.example.com',
+          apiBaseUrl: defaultTargetPlatform == TargetPlatform.android && !kIsWeb
+              ? 'http://10.0.2.2:3000'
+              : 'http://localhost:3000',
         );
       case Environment.staging:
         return AppConfig(
