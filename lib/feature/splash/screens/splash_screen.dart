@@ -6,6 +6,7 @@ import '../../../app/l10n/generated/app_localizations.dart';
 import '../../../app/routes/screen_paths.dart';
 import '../../../core/providers/core_providers.dart';
 import '../../../core/style/app_sizes.dart';
+import '../../../core/widget/common/app_logo.dart';
 import '../../../core/widget/controls/app_loading_indicator.dart';
 
 const _seenOnboardingKey = 'seen_onboarding';
@@ -56,22 +57,23 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.primary,
+      // Neutral ground so the logo's own brand gradient reads cleanly.
+      backgroundColor: theme.colorScheme.surface,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.rocket_launch, size: Insets.offset, color: theme.colorScheme.onPrimary),
+            const AppLogo(size: 112),
             const SizedBox(height: Insets.md),
             Text(
               AppLocalizations.of(context)!.appTitle,
               style: theme.textTheme.headlineMedium?.copyWith(
-                color: theme.colorScheme.onPrimary,
+                color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: Insets.xl),
-            AppLoadingIndicator(size: 28, color: theme.colorScheme.onPrimary),
+            const AppLoadingIndicator(size: 28, color: AppLogo.brandStart),
           ],
         ),
       ),

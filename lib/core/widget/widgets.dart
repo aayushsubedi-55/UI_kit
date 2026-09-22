@@ -9,6 +9,7 @@ library;
 export 'app_button.dart';
 export 'app_error_view.dart';
 export 'common/app_backdrop.dart';
+export 'common/app_logo.dart';
 export 'common/app_scroll_behavior.dart';
 export 'common/curved_clippers.dart';
 export 'common/dashed_line.dart';
