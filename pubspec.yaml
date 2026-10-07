@@ -73,6 +73,9 @@ flutter:
 
   generate: true
 
+  assets:
+    - assets/icon/
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -103,3 +106,26 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+
+# Launcher icons are generated from assets/icon/, which is itself produced by
+# `python tool/generate_launcher_icon.py` (same geometry as AppLogo).
+# Regenerate the platform icons with: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: "assets/icon/app_icon.png"
+  android: "launcher_icon"
+  adaptive_icon_background: "#2563EB"
+  adaptive_icon_foreground: "assets/icon/app_icon_foreground.png"
+  ios: true
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/icon/app_icon.png"
+    background_color: "#2563EB"
+    theme_color: "#2563EB"
+  # No windows/ folder in this project yet. Add this block back if you run
+  # `flutter create --platforms=windows .`:
+  #   windows:
+  #     generate: true
+  #     image_path: "assets/icon/app_icon.png"
+  #     icon_size: 256
